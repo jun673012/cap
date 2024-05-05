@@ -61,14 +61,7 @@ public class ImageController {
         }
         UserEntity user = userOpt.get();
 
-        Map<String, List<Map<String, Long>>> options = getOptionsBasedOnAnalysis(resValue);
-        if (options == null || options.isEmpty() || !options.containsKey(resValue)) {
-            logger.error("No options available for the given resValue: {}", resValue);
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        List<Map<String, Long>> optionList = options.get(resValue);
-        Map<String, Long> optionDetails = optionList.stream()
+        Map<String, Long> optionDetails = getOptionsBasedOnAnalysis(resValue).get(resValue).stream()
                 .filter(opt -> opt.containsValue(price))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid option selected"));
