@@ -61,18 +61,12 @@ public class ImageController {
         }
         UserEntity user = userOpt.get();
 
-        Map<String, List<Map<String, Long>>> options = getOptionsBasedOnAnalysis(resValue);
-        if (options == null || options.isEmpty() || !options.containsKey(resValue)) {
-            logger.error("No options available for the given resValue: {}", resValue);
-            return ResponseEntity.badRequest().body(null);
-        }
+        logger.info("resValue result: " + resValue);
 
-        List<Map<String, Long>> optionList = options.get(resValue);
-        Map<String, Long> optionDetails = optionList.stream()
+        Map<String, Long> optionDetails = getOptions(resValue).get(resValue).stream()
                 .filter(opt -> opt.containsValue(price))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid option selected"));
-
 
         Post post = new Post();
         post.setAddress(address);
@@ -140,6 +134,59 @@ public class ImageController {
                 options.put("장롱", wardrobeOptions);
                 break;
             case "desk":
+                List<Map<String, Long>> deskOptions = new ArrayList<>();
+                deskOptions.add(Map.of("서랍장 2개 혹은 1m 이상", 8000L));
+                deskOptions.add(Map.of("서랍장 1개 혹은 1m 미만", 5000L));
+                deskOptions.add(Map.of("책상 + 책장 세트", 12000L));
+                options.put("책상", deskOptions);
+                break;
+        }
+
+        return options;
+    }
+
+    private Map<String, List<Map<String, Long>>> getOptions(String resValue) {
+        Map<String, List<Map<String, Long>>> options = new HashMap<>();
+
+        switch (resValue) {
+            case "밥상":
+                List<Map<String, Long>> diningtableOptions = new ArrayList<>();
+                diningtableOptions.add(Map.of("6인용 이상", 7000L));
+                diningtableOptions.add(Map.of("6인용 미만", 5000L));
+                diningtableOptions.add(Map.of("대리석 6인용 이상", 17000L));
+                diningtableOptions.add(Map.of("대리석 6인용 미만", 13000L));
+                options.put("밥상", diningtableOptions);
+                break;
+            case "서랍장":
+                List<Map<String, Long>> drawerOptions = new ArrayList<>();
+                drawerOptions.add(Map.of("5단 이상", 10000L));
+                drawerOptions.add(Map.of("5단 미만", 6000L));
+                options.put("서랍장", drawerOptions);
+                break;
+            case "소파":
+                List<Map<String, Long>> sofaOptions = new ArrayList<>();
+                sofaOptions.add(Map.of("5인용이상", 17000L));
+                sofaOptions.add(Map.of("3인용", 12000L));
+                sofaOptions.add(Map.of("2인용", 9000L));
+                sofaOptions.add(Map.of("1인용", 5000L));
+                options.put("소파", sofaOptions);
+                break;
+            case "의자":
+                List<Map<String, Long>> chairOptions = new ArrayList<>();
+                chairOptions.add(Map.of("목재, 철제", 2000L));
+                chairOptions.add(Map.of("목재, 철재 외", 3000L));
+                chairOptions.add(Map.of("회전, 안락, 사무용의자", 5000L));
+                chairOptions.add(Map.of("안마의자", 30000L));
+                options.put("의자", chairOptions);
+                break;
+            case "장롱":
+                List<Map<String, Long>> wardrobeOptions = new ArrayList<>();
+                wardrobeOptions.add(Map.of("120cm 이상", 17000L));
+                wardrobeOptions.add(Map.of("90cm 이상", 14000L));
+                wardrobeOptions.add(Map.of("90cm 미만", 10000L));
+                options.put("장롱", wardrobeOptions);
+                break;
+            case "책상":
                 List<Map<String, Long>> deskOptions = new ArrayList<>();
                 deskOptions.add(Map.of("서랍장 2개 혹은 1m 이상", 8000L));
                 deskOptions.add(Map.of("서랍장 1개 혹은 1m 미만", 5000L));
