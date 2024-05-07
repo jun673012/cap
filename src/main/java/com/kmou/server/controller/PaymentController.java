@@ -52,7 +52,7 @@ public class PaymentController {
         HttpEntity<String> entity = new HttpEntity<>(obj.toJSONString(), headers);
 
         TossPayment response = restTemplate.postForObject(
-                "https://api.tosspayments.com/v1/payments/confirm",
+                "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6",
                 entity,
                 TossPayment.class);
 
