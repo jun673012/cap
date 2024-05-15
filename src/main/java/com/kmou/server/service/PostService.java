@@ -1,6 +1,7 @@
 package com.kmou.server.service;
 
 import com.kmou.server.dto.PostHeadShowDTO;
+import com.kmou.server.dto.UserPostDTO;
 import com.kmou.server.entity.Post;
 import com.kmou.server.repository.PostRepository;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,27 @@ public class PostService {
 
     private PostHeadShowDTO convertToDto(Post post) {
         return new PostHeadShowDTO(post.getId(), post.getGarbageName(), post.getUser().getName(), post.getCreateDate(), post.isAccepted(), post.isPaid());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserPostDTO> getPostsShowByUser(String username, Pageable pageable) {
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createDate"));
+
+        Page<UserPostDTO> posts = postRepository.findByUserUsername(username, sortedPageable)
+                .map(post -> new UserPostDTO(
+                        post.getId(),
+                        post.getGarbageName(),
+                        post.getUser().getUsername(),
+                        post.getCreateDate(),
+                        post.getAddress(),
+                        post.getUser().getPhoneNumber(),
+                        post.getPrice(),
+                        post.getImage(),
+                        post.isAccepted(),
+                        post.isPaid()
+                ));
+
+        return posts;
     }
 
 }

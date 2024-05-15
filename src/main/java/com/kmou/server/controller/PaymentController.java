@@ -64,8 +64,6 @@ public class PaymentController {
         return Base64.getEncoder().encodeToString((widgetSecretKey + ":").getBytes(StandardCharsets.UTF_8));
     }
 
-
-
     @PostMapping("/hold")
     public ResponseEntity<PaymentHoldDTO> holdPayment(@RequestBody PaymentHoldDTO paymentHoldDTO) {
         logger.info("Payment hold request received: {}", paymentHoldDTO.toString());

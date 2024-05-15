@@ -1,6 +1,6 @@
 package com.kmou.server.controller;
 
-import com.kmou.server.dto.PostHeadShowDTO;
+import com.kmou.server.dto.UserPostDTO;
 import com.kmou.server.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,9 +18,8 @@ public class UserController {
     private final PostService postService;
 
     @GetMapping("/user")
-    public ResponseEntity<Page<PostHeadShowDTO>> getUserPosts(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
-        Page<PostHeadShowDTO> posts = postService.getPostsByUser(userDetails.getUsername(), pageable)
-                .map(post -> new PostHeadShowDTO(post.getId(), post.getGarbageName(), post.getUsername(), post.getTime(), post.isAccepted(), post.isPaid()));
+    public ResponseEntity<Page<UserPostDTO>> getUserPosts(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
+        Page<UserPostDTO> posts = postService.getPostsShowByUser(userDetails.getUsername(), pageable);
 
         return ResponseEntity.ok(posts);
     }
