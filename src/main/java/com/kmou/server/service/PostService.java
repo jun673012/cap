@@ -51,7 +51,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Page<UserPostDTO> getPostsShowByUser(String username, Pageable pageable) {
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createDate"));
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "time"));
 
         Page<UserPostDTO> posts = postRepository.findByUserUsername(username, sortedPageable)
                 .map(post -> new UserPostDTO(
