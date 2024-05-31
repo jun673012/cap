@@ -26,7 +26,7 @@ public class MainController {
     public ResponseEntity<Map<String, Object>> getPostsHomepage(@AuthenticationPrincipal UserDetails userDetails) {
         Map<String, Object> response = new HashMap<>();
 
-        Pageable sortedPageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"));
+        Pageable sortedPageable = PageRequest.of(0, 6, Sort.by(Sort.Direction.DESC, "createDate"));
         Page<PostHeadShowDTO> allPosts = postService.getAllPosts(sortedPageable).map(post -> new PostHeadShowDTO(post.getId(), post.getGarbageName(), post.getUser().getName(), post.getCreateDate(), post.isAccepted(), post.isPaid()));
         response.put("allPosts", allPosts);
 
