@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,7 +50,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Page<UserPostDTO> getPostsShowByUser(String username, Pageable pageable) {
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "time"));
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createDate"));
 
         Page<UserPostDTO> posts = postRepository.findByUserUsername(username, sortedPageable)
                 .map(post -> new UserPostDTO(
