@@ -39,6 +39,7 @@ public class AdminController {
             dto.setPaid(post.isPaid());
             dto.setAccepted(post.isAccepted());
             dto.setTime(post.getCreateDate());
+            dto.setPhoneNumber(post.getUser().getPhoneNumber());
             return dto;
         });
 
