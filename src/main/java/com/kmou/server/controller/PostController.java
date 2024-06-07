@@ -33,6 +33,7 @@ public class PostController {
                     responseDTO.setGarbageName(post.getGarbageName());
                     responseDTO.setGarbageContent(post.getGarbageContent());
                     responseDTO.setTime(post.getCreateDate());
+                    responseDTO.setPhoneNumber(post.getUser().getPhoneNumber());
                     return ResponseEntity.ok(responseDTO);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
