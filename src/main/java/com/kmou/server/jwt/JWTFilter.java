@@ -48,7 +48,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String username = jwtUtil.getUsername(token);
         String name = jwtUtil.getName(token);
         String role = jwtUtil.getRole(token);
-        Long phoneNumber = jwtUtil.getPhoneNumber(token);
+        String phoneNumber = jwtUtil.getPhoneNumber(token);
 
 
         UserEntity userEntity = new UserEntity();

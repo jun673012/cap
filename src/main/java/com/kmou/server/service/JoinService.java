@@ -18,7 +18,7 @@ public class JoinService {
         String username = joinDTO.getUsername();
         String name = joinDTO.getName();
         String password = joinDTO.getPassword();
-        Long phoneNumber = joinDTO.getPhoneNumber();
+        String phoneNumber = joinDTO.getPhoneNumber();
 
         Boolean isExist = userRepository.existsByUsername(username);
 
