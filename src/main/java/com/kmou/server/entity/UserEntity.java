@@ -26,5 +26,5 @@ public class UserEntity {
     private String role;
 
     @Column(nullable = false)
-    private Long phoneNumber;
+    private String phoneNumber;
 }

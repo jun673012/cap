@@ -17,5 +17,5 @@ public class PostBodyShowDTO {
     boolean isAccepted;
     boolean isPaid;
     String time;
-    Long phoneNumber;
+    String phoneNumber;
 }

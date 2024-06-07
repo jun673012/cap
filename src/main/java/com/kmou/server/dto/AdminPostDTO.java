@@ -12,5 +12,5 @@ public class AdminPostDTO {
     boolean isPaid;
     boolean isAccepted;
     String time;
-    Long phoneNumber;
+    String phoneNumber;
 }

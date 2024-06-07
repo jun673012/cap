@@ -12,7 +12,7 @@ public class UserPostDTO {
     String username;
     String time;
     String address;
-    Long phoneNumber;
+    String phoneNumber;
     Long price;
     byte[] image;
     boolean isAccepted;
