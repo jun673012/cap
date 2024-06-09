@@ -56,7 +56,7 @@ public class PostService {
                 .map(post -> new UserPostDTO(
                         post.getId(),
                         post.getGarbageName(),
-                        post.getUser().getUsername(),
+                        post.getUser().getName(),
                         post.getCreateDate(),
                         post.getAddress(),
                         post.getUser().getPhoneNumber(),
