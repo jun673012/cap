@@ -21,5 +21,8 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public boolean isUsernameAvailable(String username) {
+        return !userRepository.existsByUsername(username);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.kmou.server.controller;
 
 import com.kmou.server.dto.PostBodyShowDTO;
 import com.kmou.server.dto.PostHeadShowDTO;
+import com.kmou.server.dto.UserPostDTO;
 import com.kmou.server.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -55,6 +58,13 @@ public class PostController {
             return dto;
         });
         return ResponseEntity.ok(postDTOs);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Page<UserPostDTO>> getUserPosts(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
+        Page<UserPostDTO> posts = postService.getPostsShowByUser(userDetails.getUsername(), pageable);
+
+        return ResponseEntity.ok(posts);
     }
 
 }
